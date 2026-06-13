@@ -7,6 +7,11 @@ import com.ccp.decorators.CcpInputStreamDecorator;
 import com.ccp.decorators.CcpStringDecorator;
 import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 
+/**
+ * Implementação de {@code CcpAuthenticationProvider} via GCP OAuth. Lê as credenciais do arquivo
+ * indicado pela variável de ambiente {@code GOOGLE_APPLICATION_CREDENTIALS} e retorna um token
+ * de acesso JWT com escopo {@code cloud-platform}.
+ */
 public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider{
 
 	

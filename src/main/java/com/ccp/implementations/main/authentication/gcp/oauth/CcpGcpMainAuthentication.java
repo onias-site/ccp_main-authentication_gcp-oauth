@@ -3,6 +3,10 @@ package com.ccp.implementations.main.authentication.gcp.oauth;
 import com.ccp.dependency.injection.CcpInstanceProvider;
 import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 
+/**
+ * Provedor de DI que expõe {@code GcpOauthAuthenticationProvider} como implementação de
+ * {@code CcpAuthenticationProvider}.
+ */
 public class CcpGcpMainAuthentication implements CcpInstanceProvider<CcpAuthenticationProvider> {
 
 	public CcpAuthenticationProvider getInstance() {
