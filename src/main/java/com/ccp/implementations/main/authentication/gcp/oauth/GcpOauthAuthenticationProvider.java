@@ -27,7 +27,8 @@ public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider
 			String accessToken = credential.getAccessToken();
 			return accessToken;
 		} catch (Exception e) {
-			throw new CcpErrorGcpOauthTokenRefresh(e);
+			CcpErrorGcpOauthTokenRefresh ccpErrorGcpOauthTokenRefresh = new CcpErrorGcpOauthTokenRefresh(e);
+			throw ccpErrorGcpOauthTokenRefresh;
 		}
 	}
 

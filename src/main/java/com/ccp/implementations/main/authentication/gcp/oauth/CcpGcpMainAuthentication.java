@@ -10,7 +10,8 @@ import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 public class CcpGcpMainAuthentication implements CcpInstanceProvider<CcpAuthenticationProvider> {
 
 	public CcpAuthenticationProvider getInstance() {
-		return new GcpOauthAuthenticationProvider();
+		GcpOauthAuthenticationProvider gcpOauthAuthenticationProvider = new GcpOauthAuthenticationProvider();
+		return gcpOauthAuthenticationProvider;
 	}
 
 }
