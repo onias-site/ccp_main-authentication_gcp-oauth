@@ -8,20 +8,20 @@ import com.ccp.decorators.CcpStringDecorator;
 import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 
 /**
- * Implementação de {@code CcpAuthenticationProvider} via GCP OAuth. Lê as credenciais do arquivo
- * indicado pela variável de ambiente {@code GOOGLE_APPLICATION_CREDENTIALS} e retorna um token
- * de acesso JWT com escopo {@code cloud-platform}.
+ * {@code CcpAuthenticationProvider} implementation via GCP OAuth. Reads the credentials from the file
+ * pointed to by the {@code GOOGLE_APPLICATION_CREDENTIALS} environment variable and returns a JWT
+ * access token with the {@code cloud-platform} scope.
  */
 public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider{
 
 	
 	public String getJwtToken() {
-		CcpStringDecorator ccpStringDecorator = new CcpStringDecorator("GOOGLE_APPLICATION_CREDENTIALS");
-		CcpInputStreamDecorator inputStreamFrom = ccpStringDecorator.inputStreamFrom();
-		InputStream file = inputStreamFrom.fromEnvironmentVariablesOrClassLoaderOrFile();
+		CcpStringDecorator credentialsVariableName = new CcpStringDecorator("GOOGLE_APPLICATION_CREDENTIALS");
+		CcpInputStreamDecorator credentialsInputStreamDecorator = credentialsVariableName.inputStreamFrom();
+		InputStream credentialsStream = credentialsInputStreamDecorator.fromEnvironmentVariablesOrClassLoaderOrFile();
 		try {
-			GoogleCredential fromStream = GoogleCredential.fromStream(file);
-			GoogleCredential credential = fromStream
+			GoogleCredential googleCredential = GoogleCredential.fromStream(credentialsStream);
+			GoogleCredential credential = googleCredential
 					.createScoped(Collections.singleton("https://www.googleapis.com/auth/cloud-platform"));
 			credential.refreshToken();
 			String accessToken = credential.getAccessToken();
@@ -29,7 +29,7 @@ public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider
 		} catch (Exception e) {
 			CcpErrorGcpOauthTokenRefresh ccpErrorGcpOauthTokenRefresh = new CcpErrorGcpOauthTokenRefresh(e);
 			throw ccpErrorGcpOauthTokenRefresh;
-		}
+		}
 	}
 
 	@SuppressWarnings("serial")

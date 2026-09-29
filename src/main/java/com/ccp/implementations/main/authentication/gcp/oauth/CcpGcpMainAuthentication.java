@@ -4,8 +4,8 @@ import com.ccp.dependency.injection.CcpInstanceProvider;
 import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 
 /**
- * Provedor de DI que expõe {@code GcpOauthAuthenticationProvider} como implementação de
- * {@code CcpAuthenticationProvider}.
+ * DI provider that exposes {@code GcpOauthAuthenticationProvider} as the
+ * {@code CcpAuthenticationProvider} implementation.
  */
 public class CcpGcpMainAuthentication implements CcpInstanceProvider<CcpAuthenticationProvider> {
 
