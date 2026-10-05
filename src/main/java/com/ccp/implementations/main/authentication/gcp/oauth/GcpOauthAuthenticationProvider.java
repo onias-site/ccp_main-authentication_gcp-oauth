@@ -15,6 +15,12 @@ import com.ccp.especifications.main.authentication.CcpAuthenticationProvider;
 public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider{
 
 	
+	/**
+	 * Reads the credentials named by {@code GOOGLE_APPLICATION_CREDENTIALS} (environment variable, classpath or file),
+	 * refreshes an access token with the {@code cloud-platform} scope and returns it.
+	 * @return the access token
+	 * @throws CcpErrorGcpOauthTokenRefresh when the credentials cannot be read or the token cannot be refreshed
+	 */
 	public String getJwtToken() {
 		CcpStringDecorator credentialsVariableName = new CcpStringDecorator("GOOGLE_APPLICATION_CREDENTIALS");
 		CcpInputStreamDecorator credentialsInputStreamDecorator = credentialsVariableName.inputStreamFrom();
@@ -32,8 +38,13 @@ public class GcpOauthAuthenticationProvider implements CcpAuthenticationProvider
 		}
 	}
 
+	/** Raised when the GCP access token cannot be obtained. */
 	@SuppressWarnings("serial")
 	private static class CcpErrorGcpOauthTokenRefresh extends RuntimeException {
+		/**
+		 * Wraps the cause.
+		 * @param cause the original failure
+		 */
 		private CcpErrorGcpOauthTokenRefresh(Throwable cause) {
 			super(cause);
 		}
